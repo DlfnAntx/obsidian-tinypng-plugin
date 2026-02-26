@@ -56,8 +56,8 @@ export function checkIsFileImageAndAllowed(
 	image: TFile,
 ) {
 	const isExtensionValid = checkIsFileImage(plugin, image);
-	const status = checkIsImageInSpecificFolder(plugin, image);
-	return isExtensionValid && status;
+	const isInSpecificFolder = checkIsImageInSpecificFolder(plugin, image);
+	return isExtensionValid && isInSpecificFolder;
 }
 
 export async function compressSingle(

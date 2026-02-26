@@ -19,8 +19,11 @@ export function getAllImages(plugin: TinypngPlugin) {
 }
 
 export function checkIsFileImage(plugin: TinypngPlugin, image: TFile) {
-	const extension = image.extension;
-	const customFormats = plugin.settings.extraImageFormats.split(',');
+	const extension = image.extension.toLowerCase();
+ 	const customFormats = plugin.settings.extraImageFormats
+ 		.split(',')
+ 		.map((format) => format.trim().toLowerCase())
+ 		.filter((format) => format.length > 0);
 	const isExtensionValid = [
 		...customFormats,
 		...defaultAllowedFormats,
@@ -54,7 +57,7 @@ export function checkIsFileImageAndAllowed(
 ) {
 	const isExtensionValid = checkIsFileImage(plugin, image);
 	const status = checkIsImageInSpecificFolder(plugin, image);
-	return isExtensionValid && !status;
+	return isExtensionValid && status;
 }
 
 export async function compressSingle(
